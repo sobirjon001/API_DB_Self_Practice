@@ -1,18 +1,10 @@
 package com.massMutual.library.utils;
 
 import io.restassured.RestAssured;
-import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.ResponseSpecification;
 import net.serenitybdd.junit5.SerenityTest;
-import net.serenitybdd.rest.decorators.request.RequestSpecificationDecorated;
-import net.serenitybdd.rest.utils.RequestSpecificationDecoratedFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 
 import static net.serenitybdd.rest.SerenityRest.*;
 
@@ -50,22 +42,24 @@ public class API_Utils {
   }
 
   public static String getLibrarianToken() {
+    LocalDateTime now = LocalDateTime.now();
     if (
             librarianToken == null ||
-            librarianTokenTime.isAfter(librarianTokenTime.plusMinutes(6L))
+            librarianTokenTime.plusMinutes(6L).isAfter(now)
     ) {
-      librarianTokenTime = LocalDateTime.now();
+      librarianTokenTime = now;
       librarianToken = login(librarianEmail, librarianPassword);
     }
     return librarianToken;
   }
 
   public static String getStudentToken() {
+    LocalDateTime now = LocalDateTime.now();
     if(
             studentToken == null ||
-            studentTokenTime.isAfter(studentTokenTime.plusMinutes(6L))
+            librarianTokenTime.plusMinutes(6L).isAfter(now)
     ){
-      studentTokenTime = LocalDateTime.now();
+      studentTokenTime = now;
       studentToken = login(studentEmail, studentPassword);
     }
     return studentToken;

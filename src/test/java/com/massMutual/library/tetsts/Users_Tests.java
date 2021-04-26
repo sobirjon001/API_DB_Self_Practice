@@ -70,4 +70,5 @@ public class Users_Tests extends API_Utils {
     Ensure.that("checking status code to be " + code, res -> res.statusCode(code));
 
   }
+
 }
